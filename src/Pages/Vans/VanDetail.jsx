@@ -1,0 +1,39 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
+
+export default function VnaDetail(){
+    const params= useParams();
+    const [van, setVan]= React.useState(null)
+    React.useEffect(()=>{
+        fetch(`/api/vans/${params.id}`)
+        .then(res=>res.json())
+        .then(data=>setVan(data.vans))
+    }, [params.id])
+    return (
+        van ?
+        <div className="px-6.5">
+            <Link className="text-[#201F1D] font-medium underline text-base " to="/"> Back to all vans </Link>
+            <img src={van.imageUrl} className="w-full pb-12.5 pt-10" alt="" />
+            <i className={clsx(
+                        {
+                          "bg-[#161616]": van.type === "luxury",
+                          "bg-[#115E59]": van.type === "rugged",
+                          "bg-[#E17654]": van.type === "simple",
+                        },
+                        "van-type py-1.5 px-6.5 h-[34px] font-medium not-italic border-none rounded-[5px] text-[#FFEAD0] transition-all duration-200 selected"
+                      )}
+                    >
+                      {van.type}
+                    </i>
+            <h1 className="text-[#161616] text-3xl font-bold pt-5 pb-2.5"> {van.name} </h1>
+            <h2 className="text-[#161616] font-medium text-[20px] pb-2.5"> ${van.price}/day </h2>
+            <p className="text-[#161616] font-medium text-base">
+                {van.description}
+            </p>
+            <Link to="/" className="inline-block text-center bg-[#FF8C38] border-0 w-full rounded-sm cursor-pointer transition-transform duration-100 ease-in-out font-bold text-white py-3 my-7">Rent this van</Link>
+        </div>
+        : <h1>Loading</h1>
+    )
+}

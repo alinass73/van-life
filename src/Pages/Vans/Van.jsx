@@ -21,8 +21,8 @@ export default function Van() {
         <div className="">
           <h3> {van.name} </h3>
           <p>
-            {" "}
-            ${van.price} <span>/day</span>{" "}
+             
+            ${van.price} <span>/day</span> 
           </p>
         </div>
         <i
@@ -32,7 +32,7 @@ export default function Van() {
               "bg-[#115E59]": van.type === "rugged",
               "bg-[#E17654]": van.type === "simple",
             },
-            "van-type py-1.5 px-6.5 h-[34px] font-medium not-italic border-none rounded-[5px] text-[#FFEAD0] transition-all duration-200 selected"
+            "van-type py-1.5 px-6.5 font-medium not-italic border-none rounded-[5px] text-[#FFEAD0] transition-all duration-200 selected"
           )}
           // {`van-type px-1.5 py-3.5 h-[34px] font-medium not-italic border-none rounded-[5px] bg-[#FFEAD0] text-[#4D4D4D] transition-all duration-200 selected`}
         >
@@ -44,7 +44,7 @@ export default function Van() {
   return (
     <div className="px-6">
       <h1 className="text-3xl font-bold">Explore our van options</h1>
-      <div className="grid grid-cols-2 justify-items-center gap-8.5 mt-14">
+      <div className="grid grid-cols-2 justify-items-center gap-8.5 py-13">
         {vanElements}
       </div>
     </div>

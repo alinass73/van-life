@@ -14,8 +14,15 @@ import Layout from "./components/Layout.jsx"
 import "./server.js"
 import Dashboard from "./Pages/Host/Dashboard.jsx";
 import Income from "./Pages/Host/Income.jsx";
+import HostVans from "./Pages/Host/HostVans.jsx";
 import Reviews from "./Pages/Host/Reviews.jsx";
 import HostLayout from "./components/HostLayout.jsx";
+import HostVansInfo from "./components/HostVansInfo.jsx";
+import HostVansDetail from "./Pages/Host/HostVansDetail.jsx";
+import HostVansPricing from "./Pages/Host/HostVansPricing.jsx";
+import HostVansPhotos from "./Pages/Host/HostVansPhotos.jsx";
+
+
 // const router= createBrowserRouter([{
 //   path: '/',
 //   element: <HomePage/>,
@@ -49,6 +56,12 @@ function App() {
             <Route path="host" element={<HostLayout/>}>
               <Route index element={<Dashboard />} />
               <Route path="income" element={<Income />} />
+              <Route path="vans" element={<HostVans />} />
+              <Route path="vans/:id" element={<HostVansInfo />} >
+                <Route index element={<HostVansDetail />} />
+                <Route path="pricing" element={<HostVansPricing />} />
+                <Route path="photos" element={<HostVansPhotos />} />
+              </Route>
               <Route path="reviews" element={<Reviews />} />
             </Route>
           </Route>

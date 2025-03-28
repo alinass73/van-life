@@ -14,7 +14,7 @@ export default function VnaDetail(){
     return (
         van ?
         <div className="px-6.5">
-            <Link className="text-[#201F1D] font-medium underline text-base " to="/"> Back to all vans </Link>
+            <Link className="text-[#201F1D] text-base " relative="path"  to=".."> &larr; <span className="font-medium underline">Back to all vans  </span></Link>
             <img src={van.imageUrl} className="w-full pb-12.5 pt-10" alt="" />
             <i className={clsx(
                         {

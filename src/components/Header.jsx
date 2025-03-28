@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 export default function HomePage() {
   return (
     <header className="flex h-28 items-center p-2.5 text-black">
-      <Link className="font-black text-2xl uppercase mr-auto" to="/">
+      <NavLink className="font-black text-2xl uppercase mr-auto pl-6.5" to="/">
         #VanLife
-      </Link>
+      </NavLink>
       <nav>
-        <Link className="hover:underline px-1 py-5" to="/host">
+        <NavLink className= {({isActive})=>isActive ? "font-bold underline text-[#161616] px-1 py-5" : "hover:underline px-1 py-5"} to="/host">
           Host
-        </Link>
-        <Link className="hover:underline px-1 py-5" to="/about">
+        </NavLink>
+        <NavLink className= {({isActive})=>isActive ? "font-bold underline text-[#161616] px-1 py-5" : "hover:underline px-1 py-5"} to="/about">
           About
-        </Link>
-        <Link className="hover:underline px-1 py-5" to="/vans">
+        </NavLink>
+        <NavLink className= {({isActive})=>isActive ? "font-bold underline text-[#161616] px-1 py-5" : "hover:underline px-1 py-5"} to="/vans">
           Van
-        </Link>
+        </NavLink>
       </nav>
     </header>
   );

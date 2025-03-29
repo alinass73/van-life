@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProfilePages from "./components/ProfilePages.jsx";
 import Home from "./Pages/Home.jsx";
 import About from "./Pages/About.jsx";
-import Van from "./Pages/Vans/Van.jsx";
 import VanDetail from "./Pages/Vans/VanDetail.jsx"
 import Layout from "./components/Layout.jsx"
 
@@ -21,6 +20,7 @@ import HostVansInfo from "./components/HostVansInfo.jsx";
 import HostVansDetail from "./Pages/Host/HostVansDetail.jsx";
 import HostVansPricing from "./Pages/Host/HostVansPricing.jsx";
 import HostVansPhotos from "./Pages/Host/HostVansPhotos.jsx";
+import Vans from "./Pages/Vans/Vans.jsx";
 
 
 // const router= createBrowserRouter([{
@@ -51,7 +51,7 @@ function App() {
           <Route element={<Layout/>}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/vans" element={<Van />} />
+            <Route path="/vans" element={<Vans />} />
             <Route path="/vans/:id" element={<VanDetail />} />
             <Route path="host" element={<HostLayout/>}>
               <Route index element={<Dashboard />} />

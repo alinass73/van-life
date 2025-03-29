@@ -22,7 +22,7 @@ export default  function HostVansInfo(){
     return (
       <div className=" py-14">
         <Link className="text-[#201F1D] text-base px-6.5" relative="path"  to=".."> &larr; <span className="font-medium underline">Back to all vans  </span></Link>
-        <div className="bg-white">
+        <div className="bg-white border-0 rounded-md">
 
         <div className="py-4.5 flex " >
             <div className="w-40 h-40">

@@ -11,7 +11,7 @@ export default  function HostVans(){
 
   const vanElements= vans.map((van)=>{
     return (
-      <Link to={`/host/vans/${van.id}`} key={van.id} className=" my-3.5">
+      <Link to={van.id} key={van.id} className=" my-3.5">
         <div className="py-4.5 flex">
           <div className="w-16 h-16">
             <img src={van.imageUrl} className="w-full h-full object-cover" alt="" />

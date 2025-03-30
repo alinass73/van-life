@@ -21,6 +21,7 @@ import HostVansDetail from "./Pages/Host/HostVansDetail.jsx";
 import HostVansPricing from "./Pages/Host/HostVansPricing.jsx";
 import HostVansPhotos from "./Pages/Host/HostVansPhotos.jsx";
 import Vans from "./Pages/Vans/Vans.jsx";
+import NotFound from "./Pages/NotFound.jsx";
 
 
 // const router= createBrowserRouter([{
@@ -64,6 +65,7 @@ function App() {
               </Route>
               <Route path="reviews" element={<Reviews />} />
             </Route>
+            <Route path="*" element={<NotFound/>} /> 
           </Route>
         </Routes>
       </div>

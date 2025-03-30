@@ -1,20 +1,46 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
+import { getVan } from "../../../api";
+
 
 export default function VnaDetail(){
     const params= useParams();
-    const [van, setVan]= React.useState(null)
+    const [van, setVan]= React.useState(null);
+    const location= useLocation();
+    const lastLocation= location.state?.search || ""
+    const typeLocation = location.state?.type || "all"
+    const [loading, setLoading]= React.useState(true);
+    const [error, setError] = React.useState(null);
+    
     React.useEffect(()=>{
-        fetch(`/api/vans/${params.id}`)
-        .then(res=>res.json())
-        .then(data=>setVan(data.vans))
+      async function loadVan() {
+        setLoading(true)
+        try{
+          const data= await getVan(params.id);
+          setVan(data)
+
+        }catch(err)
+        {
+          setError(err)
+        }finally{
+          setLoading(false)
+        }
+      }
+      loadVan()
     }, [params.id])
-    return (
-        van ?
+    if(loading){
+      return <h1 aria-live="polite" className="text-center text-3xl font-bold text-[#161616] py-27">Loading... </h1>
+    }
+    if(error){
+      return <h1 aria-live="assertive" className="text-center text-3xl font-bold text-[#161616] py-27"> {error.message} </h1>
+    }
+
+    return (    
         <div className="px-6.5">
-            <Link className="text-[#201F1D] text-base " relative="path"  to=".."> &larr; <span className="font-medium underline">Back to all vans  </span></Link>
+            <Link className="text-[#201F1D] text-base " relative="path" 
+            to={`../?${lastLocation}`}> &larr; <span className="font-medium underline">Back to {typeLocation} vans  </span></Link>
             <img src={van.imageUrl} className="w-full pb-12.5 pt-10" alt="" />
             <i className={clsx(
                         {
@@ -34,6 +60,5 @@ export default function VnaDetail(){
             </p>
             <Link to="/" className="inline-block text-center bg-[#FF8C38] border-0 w-full rounded-sm cursor-pointer transition-transform duration-100 ease-in-out font-bold text-white py-3 my-7">Rent this van</Link>
         </div>
-        : <h1>Loading</h1>
     )
 }

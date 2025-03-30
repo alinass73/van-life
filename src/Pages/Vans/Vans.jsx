@@ -1,27 +1,41 @@
 import React from "react";
 import clsx from "clsx";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
+import { getVans } from "../../../api";
 
 export default function Vans() {
   const [vans, setVans] = React.useState([]);
-  React.useEffect(() => {
-    fetch("/api/vans")
-      .then((res) => res.json())
-      .then((data) => setVans(data.vans));
-      
-    }, []);
-    // let classsName=;
-    // React.useEffect()
-    // console.log(searchParams.get("type"));
   const [searchParams, setSearchParams] = useSearchParams();
-  const typeFilter= searchParams.get("type");  
-  const vanFiltered= typeFilter ?  vans.filter((van)=> van.type.toLowerCase()== typeFilter) : vans;
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    async function loadVans() {
+      setLoading(true)
+      try{
+        const data= await getVans();
+        setVans(data)
+      }catch(err){
+        setError(err)
+      }finally{
+        setLoading(false)
+      }
+    }
+    loadVans()
+  }, []);
+  
+  const typeFilter = searchParams.get("type");
+  console.log(searchParams.toString());
+  const vanFiltered = typeFilter
+    ? vans.filter((van) => van.type.toLowerCase() == typeFilter)
+    : vans;
   const vanElements = vanFiltered.map((van) => (
     <div key={van.id} className="">
       <Link
-        to={`/vans/${van.id}`}
+        state={{ search: searchParams.toString(), type: typeFilter }}
+        to={van.id}
         aria-label={`View details for ${van.name}, 
-      priced at $${van.price} per day`}
+        priced at $${van.price} per day`}
         className="space-y-2"
       >
         <img
@@ -51,26 +65,53 @@ export default function Vans() {
       </Link>
     </div>
   ));
-  // const [vanTypes, setVanTypes]= React.useState([])
-
-  // // const vansTypes= vans.map((van)=>(setVanTypes(vanTypes.includes(van.type) ? prevVan : [...prevVan,van.type] )))
-  const vanTypes = [...new Set(vans.map(van => van.type))]
-  const linkTypes= vanTypes.map((type) =>{
-  const classLink=`text-[#4D4D4D] bg-[#FFEAD0] rounded-sm font-medium  hover:text-white ${
-    type === "luxury" ? "hover:bg-[#161616]": (type === "rugged" ? "hover:bg-[#115E59]" :(type === "simple" ? "hover:bg-[#E17654]" : null))
-  } px-6 py-1.5`
+  const vanTypes = [...new Set(vans.map((van) => van.type))];
+  // const activeClass=
+  const linkTypes = vanTypes.map((type) => {
+    const classLink = `text-[#4D4D4D] rounded-sm font-medium hover:text-white px-6 py-1.5 ${
+      type === "luxury"
+        ? "hover:bg-[#161616] "
+        : type === "rugged"
+        ? "hover:bg-[#115E59] "
+        : type === "simple"
+        ? "hover:bg-[#E17654] "
+        : "null"
+    } 
+  ${
+    typeFilter === "luxury" && type === "luxury"
+      ? "bg-[#161616] text-white"
+      : typeFilter === "rugged" && type === "rugged"
+      ? "bg-[#115E59] text-white"
+      : typeFilter === "simple" && type === "simple"
+      ? "bg-[#E17654] text-white"
+      : "bg-[#FFEAD0]"
+  }
+  `;
     // return <Link to={`?type=${type}`} className="text-[#4D4D4D] font-medium bg-[#FFEAD0] hover:text-white hover:bg-[] px-6 py-1.5"> {type} </Link>
-    return <Link to={`?type=${type}`} className={classLink}> {type} </Link>
-  })
+    return (
+      <NavLink to={`?type=${type}`} className={classLink}>
+        {type} 
+      </NavLink>
+    );
+  });
   linkTypes.push(
-    <Link to="." className="text-[#4D4D4D] font-medium underline px-6 py-1.5">
+    <Link to="." className={`text-[#4D4D4D] font-medium underline px-6 py-1.5 ${typeFilter ? "visible" : "invisible"}`}>
       clear filters
     </Link>
   );
+
+  if(loading){
+    return <h1 aria-live="polite" className="text-center text-3xl font-bold text-[#161616] py-27">Loading... </h1>
+  }
+  if(error){
+    return <h1 aria-live="assertive" className="text-center text-3xl font-bold text-[#161616] py-27"> {error.message} </h1>
+  }
   return (
     <div className="px-6">
-      <h1 className="text-3xl font-bold text-[#161616] pt-12 pb-5.5">Explore our van options</h1>
-      <div className="flex justify-between">
+      <h1 className="text-3xl font-bold text-[#161616] pt-12 pb-5.5">
+        Explore our van options
+      </h1>
+      <div className="flex justify-between flex-wrap items-center">
         {linkTypes}
       </div>
       <div className="grid grid-cols-2 justify-items-center gap-8.5 py-13">

@@ -1,28 +1,34 @@
 import React from "react";
 import clsx from "clsx";
-import { Link, NavLink, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useSearchParams, useLoaderData } from "react-router-dom";
 import { getVans } from "../../../api";
 
+export function loader(){
+  return getVans();
+}
+
 export default function Vans() {
-  const [vans, setVans] = React.useState([]);
+  const datas= useLoaderData()
+  // console.log(datas)
+  // const [vans, setVans] = React.useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-
-  React.useEffect(() => {
-    async function loadVans() {
-      setLoading(true)
-      try{
-        const data= await getVans();
-        setVans(data)
-      }catch(err){
-        setError(err)
-      }finally{
-        setLoading(false)
-      }
-    }
-    loadVans()
-  }, []);
+  const vans= datas
+  // React.useEffect(() => {
+  //   async function loadVans() {
+  //     setLoading(true)
+  //     try{
+  //       const data= await getVans();
+  //       setVans(data)
+  //     }catch(err){
+  //       setError(err)
+  //     }finally{
+  //       setLoading(false)
+  //     }
+  //   }
+  //   loadVans()
+  // }, []);
   
   const typeFilter = searchParams.get("type");
   console.log(searchParams.toString());

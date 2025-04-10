@@ -1,10 +1,18 @@
 import React from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useLoaderData, useParams } from "react-router-dom";
 import clsx from "clsx";
-import { useOutletContext } from "react-router-dom";
+import { getHostVan } from "../../../api";
+import { requireAuth } from "../../../utils";
+// import { useOutletContext } from "react-router-dom";
 
+export async function loader({params}){
+  await requireAuth()
+  return getHostVan(params.id)
+}
 export default function HostVansDetail() {
-  const { currentVan } = useOutletContext();
+  // const { currentVan } = useOutletContext();
+  const currentVan = useLoaderData();
+
 
   return (
     <div className="pl-6.5 py-7 space-y-3.5">

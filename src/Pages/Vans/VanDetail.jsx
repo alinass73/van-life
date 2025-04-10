@@ -1,38 +1,45 @@
 import React from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { getVan } from "../../../api";
+import { getVans } from "../../../api";
 
+
+export function loader({params}){
+  return getVans(params.id)
+}
 
 export default function VnaDetail(){
     const params= useParams();
-    const [van, setVan]= React.useState(null);
+    const van= useLoaderData();
+    // const [van, setVan]= React.useState(null);
+    // const van= datas;
     const location= useLocation();
-    const lastLocation= location.state?.search || ""
-    const typeLocation = location.state?.type || "all"
-    const [loading, setLoading]= React.useState(true);
+    const lastLocation= location.state?.search || "";
+    const typeLocation = location.state?.type || "all";
+
+    // const [loading, setLoading]= React.useState(false);
     const [error, setError] = React.useState(null);
     
-    React.useEffect(()=>{
-      async function loadVan() {
-        setLoading(true)
-        try{
-          const data= await getVan(params.id);
-          setVan(data)
+    // React.useEffect(()=>{
+    //   async function loadVan() {
+    //     setLoading(true)
+    //     try{
+    //       const data= await getVan(params.id);
+    //       setVan(data)
 
-        }catch(err)
-        {
-          setError(err)
-        }finally{
-          setLoading(false)
-        }
-      }
-      loadVan()
-    }, [params.id])
-    if(loading){
-      return <h1 aria-live="polite" className="text-center text-3xl font-bold text-[#161616] py-27">Loading... </h1>
-    }
+    //     }catch(err)
+    //     {
+    //       setError(err)
+    //     }finally{
+    //       setLoading(false)
+    //     }
+    //   }
+    //   loadVan()
+    // }, [params.id])
+    // if(loading){
+    //   return <h1 aria-live="polite" className="text-center text-3xl font-bold text-[#161616] py-27">Loading... </h1>
+    // }
     if(error){
       return <h1 aria-live="assertive" className="text-center text-3xl font-bold text-[#161616] py-27"> {error.message} </h1>
     }

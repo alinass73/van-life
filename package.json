@@ -13,10 +13,10 @@
     "@tailwindcss/vite": "^4.0.15",
     "axios": "^1.8.4",
     "clsx": "^2.1.1",
-    "miragejs": "^0.1.48",
+    "miragejs": "^0.1.46",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "^6.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

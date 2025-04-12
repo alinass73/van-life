@@ -25,7 +25,7 @@ export default function VnaDetail(){
     // console.log(typeLocation)
 
     // const [loading, setLoading]= React.useState(false);
-    const [error, setError] = React.useState(null);
+    // const [error, setError] = React.useState(null);
     
     // React.useEffect(()=>{
     //   async function loadVan() {
@@ -46,9 +46,9 @@ export default function VnaDetail(){
     // if(loading){
     //   return <h1 aria-live="polite" className="text-center text-3xl font-bold text-[#161616] py-27">Loading... </h1>
     // }
-    if(error){
-      return <h1 aria-live="assertive" className="text-center text-3xl font-bold text-[#161616] py-27"> {error.message} </h1>
-    }
+    // if(error){
+    //   return <h1 aria-live="assertive" className="text-center text-3xl font-bold text-[#161616] py-27"> {error.message} </h1>
+    // }
 
     return (    
         <div className="px-6.5">

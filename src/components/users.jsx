@@ -43,3 +43,23 @@ const Users = () => {
 };
 
 export default Users;
+
+
+
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBBadw1m0Zjr8OKYSeQMVZq55n3rLugtE8",
+//   authDomain: "reactvan7.firebaseapp.com",
+//   projectId: "reactvan7",
+//   storageBucket: "reactvan7.firebasestorage.app",
+//   messagingSenderId: "667680504104",
+//   appId: "1:667680504104:web:ada162512bc08a0b3fb81d"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);

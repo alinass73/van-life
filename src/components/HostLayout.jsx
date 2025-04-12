@@ -4,10 +4,10 @@ export default function HostLayout(){
     // const activeStyle= {"font-bold underline text-[#161616] px-1 py-5" }
     return(
         <>
-            <nav className="pl-6.5">
+            <nav className="pl-6.5 py-5">
                 <NavLink to=""
                 end
-                className={({isActive})=> isActive ? "font-bold underline text-[#161616] px-1 py-5" : "hover:underline px-1 py-5"}
+                className={({isActive})=> isActive ? "font-bold underline text-[#161616] px-1 py-5" : "hover:underline pr-1 py-5"}
                 > Dashboard</NavLink>
                 <NavLink to="income"
                 className={({isActive})=> isActive ? "font-bold underline text-[#161616] px-1 py-5" : "hover:underline px-1 py-5"}

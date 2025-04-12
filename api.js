@@ -14,7 +14,8 @@ export async function getVans(id) {
 
 export async function getHostVan(id) {
     // const res = van ? await fetch(`/api/host/vans/${van}`) : await fetch(`/api/host/vans`)
-    const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
+    const url = id ? `/api/host/vans/${id}` : "/api/host/vans";
+    console.log(url)
     const res =  await fetch(url)
     if (!res.ok) {
         throw {

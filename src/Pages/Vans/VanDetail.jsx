@@ -3,9 +3,11 @@ import { useParams, useLocation, useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { getVans } from "../../../api";
+import { requireAuth } from "../../../utils";
 
 
-export function loader({params}){
+export async function loader({params,request}){
+  await requireAuth(request)
   return getVans(params.id)
 }
 
@@ -15,8 +17,12 @@ export default function VnaDetail(){
     // const [van, setVan]= React.useState(null);
     // const van= datas;
     const location= useLocation();
+    console.log(location)
+
     const lastLocation= location.state?.search || "";
+    // console.log(lastLocation)
     const typeLocation = location.state?.type || "all";
+    // console.log(typeLocation)
 
     // const [loading, setLoading]= React.useState(false);
     const [error, setError] = React.useState(null);

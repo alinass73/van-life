@@ -5,8 +5,8 @@ import { getHostVan } from "../../../api";
 import { requireAuth } from "../../../utils";
 // import { useOutletContext } from "react-router-dom";
 
-export async function loader({params}){
-  await requireAuth()
+export async function loader({params,request}){
+  await requireAuth(request);
   return getHostVan(params.id)
 }
 export default function HostVansDetail() {

@@ -2,13 +2,14 @@ import React from "react";
 import { useParams, useLocation, useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { getVans } from "../../../api";
+import { getVan, getVans } from "../../../api";
 import { requireAuth } from "../../../utils";
 
 
 export async function loader({params,request}){
   await requireAuth(request)
-  return getVans(params.id)
+  // return getVans(params.id)
+  return getVan(params.id)
 }
 
 export default function VnaDetail(){
